@@ -47,7 +47,7 @@ def insertion_sort(arr):
 
 | Complexity | Time     | Space  |
 | ---------- | -------- | ------ |
-| worst      | $O(n^2)$ | $O(1)$ |
+| worst      | `$O(n^2)$` | $O(1)$ |
 | best       | $O(n)$   | $O(1)$ |
 
 ### 1.4.1. Time Complexity
