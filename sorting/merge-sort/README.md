@@ -1,6 +1,6 @@
-# 1. ⎀ Insertion Sort
+# 1. Ⓜ️ Merge Sort
 
-- [1. ⎀ Insertion Sort](#1--insertion-sort)
+- [1. Ⓜ️ Merge Sort](#1-️-merge-sort)
   - [1.1. Properties](#11-properties)
   - [1.2. Pseudo Code](#12-pseudo-code)
   - [1.3. Python Code](#13-python-code)
@@ -45,24 +45,24 @@ def insertion_sort(arr):
 
 ## 1.4. Asymptotic Analysis
 
-| Complexity | Time     | Space  |
-| ---------- | -------- | ------ |
-| worst      | `O(n^2)` | `O(1)` |
-| average    | `θ(n^2)` | `O(1)` |
-| best       | `Ω(n)`   | `O(1)` |
+| Complexity | Time         | Space  |
+| ---------- | ------------ | ------ |
+| worst      | `O(nlog(n))` | `O(n)` |
+| average    | `θ(nlog(n))` | `O(n)` |
+| best       | `Ω(nlog(n))` | `O(n)` |
 
 ### 1.4.1. Time Complexity
 
-| Line of Code                         | Best Case | Worst Case         |
-| ------------------------------------ | --------- | ------------------ |
-| ```python def insertion_sort(arr)``` | NA        | NA                 |
-| `for i in range(1, len(arr)):`       | `n`       | `n`                |
-| `>> key = arr[i]`                    | `n-1`     | `n-1`              |
-| `>> j = i -1`                        | `n-1`     | `n-1`              |
+| Line of Code                         | Best Case | Worst Case |
+| ------------------------------------ | --------- | ---------- |
+| ```python def insertion_sort(arr)``` | NA        | NA         |
+| `for i in range(1, len(arr)):`       | `n`       | `n`        |
+| `>> key = arr[i]`                    | `n-1`     | `n-1`      |
+| `>> j = i -1`                        | `n-1`     | `n-1`      |
 | `while (j>=0) and (arr[j] > key):`   | `n-1`     | `n(n-1)/2` |
 | `>> arr[j + 1] = arr[j]`             | `0`       | `n(n-1)/2` |
 | `>> j -= 1`                          | `0`       | `n(n-1)/2` |
-| `arr[j + 1] = key`                   | `n-1`     | `n-1`              |
+| `arr[j + 1] = key`                   | `n-1`     | `n-1`      |
 
 ### 1.4.2. Space Complexity
 | Line of Code                         | Best Case | Worst Case |

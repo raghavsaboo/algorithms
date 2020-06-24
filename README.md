@@ -8,3 +8,8 @@ For data structures please go to: [Data Structures Implemented in Python](https:
 
 - **Sorting**
   - [⎀ Insertion Sort](sorting/insertion-sort/)
+  - [Ⓜ️ Merge Sort](sorting/merge-sort/) 
+  - [⏩ Quick Sort](sorting/quick-sort/)
+  - [🧼 Bubble Sort](sorting/bubble-sort/)
+  - [🔘 Selection Sort](sorting/selection-sort/)
+
