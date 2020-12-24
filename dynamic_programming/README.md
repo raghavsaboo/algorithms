@@ -173,3 +173,8 @@
 > Output: 4
 > Explanation: The LIS is {-4,3,7,15}.
 > ```
+
+$$O(n)$$ or $O(n^2)$ 
+
+${\displaystyle \mathbf {v} ={\begin{bmatrix}v_{1}\\v_{2}\\\vdots \\v_{n}\end{bmatrix}},\ \mathbf {w} ={\begin{bmatrix}w_{1}\\w_{2}\\\vdots \\w_{m}\end{bmatrix}}.}$
+
