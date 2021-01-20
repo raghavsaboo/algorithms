@@ -198,5 +198,144 @@
 
 #### Dijkstra's Algorithm
 
+>A network of nodes where the edges have some weight/cost associated to them between the nodes.
+>
+>To find the shortest/least costly path between a vertex and another vertex **assuming all edges have ==non-negative== weights** is Dijkstra's algorithm. It works by repeatedly traveling to the closest vertex which has not yet been reached.
+>
+>1. Create a dictionary `costs` - mapping each node to the minimum amount of cost it takes for a message to propagate to it. Initialize to `inf` for all nodes, except for the start node for which it is `0`.
+>2. Consider an unvisited node and update it with the smallest propagation cost. For each of its neighbors, replace the propagation time with the time it would take to go through the current node **if it is smaller**.
+>3. Continue this process until all nodes have been visited.
+>4. Return the largest value in the dictionary as the `minimum/shortest path` total to reach the last node
+>
+>Time complexity: $O(n^2)$
+>
+>Space Complexity: $O(n)$
+>
+>```python
+>class Network:
+>    def __init__(self, N, edges):
+>        self.vertices = range(N + 1)
+>        self.edges = edges
+>        
+>    def make_graph(self):
+>        graph = {v: [] for v in network.vertices}
+>        
+>        for u, v, w in network.edges:
+>            graph[u].append((v, w))
+>            
+>        return graph
+>    
+>    def propagate(network):
+>        graph = network.make_graph()
+>        costs = {node: float('int') for node in graph}
+>        costs[0] = 0
+>        
+>        q = list(graph)
+>        while q:
+>            u = min(q, key=lambda x: costs[x])
+>            q.remove(u)
+>            for v, cost in graph[u]:
+>                costs[v] = min(costs[v], costs[u] + cost)
+>                
+>        return max(times.values())
+>```
+>
+>We can use a **priority queue** for sparse graphs - ordering each node by propagation time.
+>
+>1. Start the priority queue (heap) to hold just the `start node` with value `0`.
+>2. Each time we encounter a new neighbor, we add it to the queue, with value equal to the sum of the time from node zero to the current node, and from the current node to the neighbor.
+>3. Whenever we pop a node off the queue that does not exist in the `costs` dictionary, we add a new key with the corresponding value.
+>
+>Time complexity: $O((|E|+|V|)logV)$
+>
+>```python
+>def propagate(network):
+>    graph = network.make_graph()
+>    times = {}
+>    
+>    q = [(0, 0)]
+>    while q:
+>        u, node = heapq.heappop(q)
+>        if node not in times:
+>            times[node] = u
+>            for neighbor, v in graph[node]:
+>                if neighbor not in times:
+>                    heapq.heappop(q, (u + v, neighbor))
+>                    
+>    return max(times.values())
+>```
 
+#### Bellman-Ford
 
+> Some differences with Dijkstra's Algorithm:
+>
+> 1. Bellman-Ford (BF) has a time complexity of $O(VE(|V|-1)) \approx O(n^3)$ vs. Dijkstra's $O(n^2)$
+> 2. BF does relaxation all nodes for `|V|-1` times and Dijkstra does it per node and only once.
+> 3. BF can handle negative weights but Dijkstra's can't. It can also detect negative cycles.
+> 4. BF visits a vertex more than once but Dijkstra's visits only once.
+>
+> The algorithm is as follows:
+>
+> 1. Set a `source` node, and set the distance/cost to all other nodes as `inf`
+> 2. For each edge `(u, v)` in the graph, check if it is more efficient to get to `v` along the edge from `u` than the current best option. If so, then update the value for `v`.
+> 3. Note: for any graph with `V` vertices, the longest path can have at most `|V| - 1` edges.
+>    - thus we can repeat the above operation `|V| - 1` times and eventually arrive at the optimal way to reach each vertex
+> 4. After `|V| - 1` iterations, if we still find a smaller path, there must be a negative cycle in the graph.
+>
+> ```python
+> from math import log
+> 
+> def arbitrage(table):
+>     transformed_graph = [[-log(edge) for edge in row] for row in graph]
+>     
+>     # Pick any source vertex - we can run Bellman-Ford from any vertex and
+>     # get the right result
+>     source = 0
+>     n = len(transformed_graph)
+>     min_dist = [float('inf')] * n
+>     
+>     min_dist[source] = 0
+>     
+>     # Relax edges |V - 1| times
+>     for i in range(n - 1):
+>         for v in range(n):
+>             for w in range(n):
+>                 if min_dist[w] > min_dist[v] + transformed_graph[v][w]:
+>                     min_dist[w] = min_dist[v] + transformed_graph[v][w]
+>                     
+>     # If we can still relax edges, then we have a negative cycle:
+>     for v in range(n):
+>         for w in range(n):
+>             if min_dist[w] > min_dist[v] + transformed_graph[v][w]:
+>             	return True
+>             
+>     return False
+> ```
+>
+> ### Example - Currency Exchange Arbitrage Opportunity
+>
+> Imagine you had a table of currency exchange rates between any two currencies as below:
+>
+> ```python
+> graph = {
+>     'USD': {'GBP': 0.77, 'INR': 71.71, 'EUR': 0.87},
+>     'GBP': {'USD': 1.30, 'INR': 93.55, 'EUR': 1.14},
+>     'INR': {'USD': 0.014, 'GBP': 0.011, 'EUR': 0.012},
+>     'EUR': {'USD': 1.14, 'GBP': 0.88, 'INR': 81.95}
+> }
+> ```
+>
+> We can model this such that each currency is a node, and edges between the nodes are the exchange rates between each currency.
+>
+> The goal is to **find a cycle whose edge weight product is greater than one**.
+>
+> How to handle product of edge weights (instead of sum of edge weights)?
+>
+> - Use the property of $log(ab)=log(a)+log(b)$
+> - Take the $log$ of all exchange rates, and negate them to ensure all weights are positive
+>
+> Then find a negative sum cycle using BF.
+
+#### Floyd-Warshall
+
+> Used to find the shortest path between **all** vertices in a weighted graph i.e. no starting/source node is used.

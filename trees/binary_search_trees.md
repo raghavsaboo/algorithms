@@ -62,19 +62,19 @@ class BST:
 >        self.right = right
 >        
 >def get_bounds(root, x, floor=None, ceil=None):
->    if not root:
->        return floor, ceil
+>        if not root:
+>            return floor, ceil
 >    
->    if x == root.data:
->        return x, x
+>        if x == root.data:
+>            return x, x
 >    
->    elif x < root.data:
->        floor, ceil = get_bounds(root.left, x, floor, root.data)
+>        elif x < root.data:
+>            floor, ceil = get_bounds(root.left, x, floor, root.data)
 >    
->    else:
->        floor, ceil = get_bounds(root.right, x, root.data, ceil)
+>        else:
+>            floor, ceil = get_bounds(root.right, x, root.data, ceil)
 >        
->    return floor, ceil
+>        return floor, ceil
 >```
 
 ## Convert Sorted Array to BST
@@ -85,16 +85,16 @@ class BST:
 >
 >```python
 >def make_bst(array):
->    if not array:
->        return None
+>        if not array:
+>            return None
 >    
->    mid = len(array) // 2
+>        mid = len(array) // 2
 >    
->    root = Node(array[mid])
->    root.left = make_bst(array[:mid])
->    root.right = make_bst(array[mid+1:])
+>        root = Node(array[mid])
+>        root.left = make_bst(array[:mid])
+>        root.right = make_bst(array[mid+1:])
 >    
->    return root
+>        return root
 >```
 
 # Red Black Trees

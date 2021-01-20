@@ -34,7 +34,7 @@ This data structure needs to main methods:
   - calling `find` to get which friend group each student is in
   - if they are not in the same group, assign one of the students to the friend group of another
 - In order to reduce the time complexity from $O(n)$ to $O(1)$ for the `find` call we do two things:
-  - **path compression** - after we all `find` we know which group the student belongs to, so we can reassign tis student directly to that group
+  - **path compression** - after we all `find` we know which group the student belongs to, so we can reassign this student directly to that group
   - **unite to larger** - assign the student belonging to the smaller set to the larger set
 
 ```python
